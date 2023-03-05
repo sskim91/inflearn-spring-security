@@ -1,16 +1,24 @@
 package com.example.corespringsecurity.domain.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- * Created by sskim on 2022/06/05
- */
+import java.util.List;
+
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountDto {
-    private Long id;
+
+    private String id;
     private String username;
-    private String password;
     private String email;
-    private Integer age;
-    private String role;
+    private int age;
+    private String password;
+    private List<String> roles;
 }
+
+

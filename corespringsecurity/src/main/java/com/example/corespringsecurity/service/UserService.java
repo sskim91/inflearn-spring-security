@@ -1,11 +1,22 @@
 package com.example.corespringsecurity.service;
 
+
+import com.example.corespringsecurity.domain.dto.AccountDto;
 import com.example.corespringsecurity.domain.entity.Account;
 
-/**
- * Created by sskim on 2022/06/05
- */
+import java.util.List;
+
 public interface UserService {
 
     void createUser(Account account);
+
+    void modifyUser(AccountDto accountDto);
+
+    List<Account> getUsers();
+
+    AccountDto getUser(Long id);
+
+    void deleteUser(Long idx);
+
+    void order();
 }

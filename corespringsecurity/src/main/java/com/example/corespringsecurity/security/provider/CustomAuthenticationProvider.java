@@ -1,6 +1,5 @@
 package com.example.corespringsecurity.security.provider;
 
-import com.example.corespringsecurity.security.common.FormAuthenticationDetailsSource;
 import com.example.corespringsecurity.security.common.FormWebAuthenticationDetails;
 import com.example.corespringsecurity.security.service.AccountContext;
 import org.springframework.beans.factory.annotation.Autowired;

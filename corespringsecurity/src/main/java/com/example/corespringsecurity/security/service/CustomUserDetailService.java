@@ -10,13 +10,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by sskim on 2022/06/12
  */
-@Service
+@Service("userDetailsService")
 public class CustomUserDetailService implements UserDetailsService {
 
     @Autowired
@@ -27,11 +28,19 @@ public class CustomUserDetailService implements UserDetailsService {
         Account account = userRepository.findByUsername(username);
 
         if (account == null) {
-            throw new UsernameNotFoundException("UsernameNotFoundException");
+            if (userRepository.countByUsername(username) == 0) {
+                throw new UsernameNotFoundException("UsernameNotFoundException");
+            }
         }
 
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(account.getRole()));
+        Set<String> userRoles = account.getUserRoles()
+                .stream()
+                .map(userRole -> userRole.getRoleName())
+                .collect(Collectors.toSet());
+
+        List<GrantedAuthority> roles = userRoles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
         AccountContext accountContext = new AccountContext(account, roles);
 
